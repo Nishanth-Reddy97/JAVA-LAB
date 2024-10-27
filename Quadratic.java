@@ -22,7 +22,7 @@ class Quadratic {
       r1 = ((double) -b / (2 * a)) + Math.sqrt(discriminant);
       r2 = (double) -b / (2 * a) - Math.sqrt(discriminant);
 
-      Zain Mahedi – 1WA23CS056 System.out.println(
+      System.out.println(
           "The roots are " + r1 + " & " + r2);
     } else {
       System.out.println(
