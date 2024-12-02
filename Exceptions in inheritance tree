@@ -1,0 +1,68 @@
+WrongAge.java
+public class WrongAge extends Exception {
+    public WrongAge(String message) {
+        super(message);
+    }
+}
+
+Father.java
+public class Father {
+    protected int fatherAge;
+
+    // Constructor for Father class
+    public Father(int fatherAge) throws WrongAge {
+        if (fatherAge < 0) {
+            throw new WrongAge("Father's age cannot be negative.");
+        }
+        this.fatherAge = fatherAge;
+    }
+
+    public int getFatherAge() {
+        return fatherAge;
+    }
+}
+
+Son.java
+public class Son extends Father {
+    private int sonAge;
+
+    // Constructor for Son class
+    public Son(int fatherAge, int sonAge) throws WrongAge {
+        super(fatherAge); // Calling Father's constructor
+        if (sonAge >= fatherAge) {
+            throw new WrongAge("Son's age cannot be greater than or equal to Father's age.");
+        }
+        this.sonAge = sonAge;
+    }
+
+    public int getSonAge() {
+        return sonAge;
+    }
+}
+
+Main.java
+public class Main {
+    public static void main(String[] args) {
+        try {
+            Father father = new Father(45); // Valid Father's age
+            System.out.println("Father's age: " + father.getFatherAge());
+            
+            // Trying to create Son object with invalid ages
+            Son son = new Son(45, 50);  // This will throw an exception
+            System.out.println("Son's age: " + son.getSonAge());
+
+        } catch (WrongAge e) {
+            System.out.println("Exception: " + e.getMessage());
+        }
+
+        try {
+            // Trying another case where the son's age is valid
+            Father father2 = new Father(30); // Valid Father's age
+            Son son2 = new Son(30, 25);  // Valid, Son's age is less than Father's age
+            System.out.println("Father's age: " + father2.getFatherAge());
+            System.out.println("Son's age: " + son2.getSonAge());
+        } catch (WrongAge e) {
+            System.out.println("Exception: " + e.getMessage());
+        }
+    }
+}
